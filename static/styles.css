@@ -1,3 +1,4 @@
+
 :root {
     --primary: #2c3e50;
     --secondary: #34495e;
@@ -11,30 +12,76 @@
     --shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-body { 
-    margin: 0; 
-    padding: 0; 
+/* 🌞 Light mode default */
+body {
+    margin: 0;
+    padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f5f6fa;
+    background-color: var(--light);
     color: var(--text-dark);
+    transition: all 0.3s ease;
 }
 
+/* 🌙 Dark mode */
+body.dark-mode {
+    background-color: #121212;
+    color: #f5f5f5;
+}
+
+body.dark-mode .sidebar,
+body.dark-mode .main-chat,
+body.dark-mode h2 {
+    background-color: #1e1e1e;
+    color: #f5f5f5;
+}
+
+/* ===== Header Section ===== */
 h2 {
     color: var(--primary);
-    padding: 20px;
+    padding: 15px 25px;
     margin: 0;
     background: white;
     box-shadow: var(--shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
 }
 
-.container { 
-    display: flex; 
-    gap: 20px; 
+#username {
+    font-weight: 600;
+    color: var(--accent);
+    h2 span#username {
+    margin-left: 2px;   /* small space only before name */
+    margin-right: 0px;  /* tiny space before the exclamation */
+}
+
+}
+
+h2 button {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+h2 button:hover {
+    background: #2980b9;
+}
+
+/* ===== Layout ===== */
+.container {
+    display: flex;
+    gap: 20px;
     height: calc(100vh - 85px);
     padding: 20px;
 }
 
-.sidebar { 
+.sidebar {
     width: 250px;
     background: white;
     border-radius: 10px;
@@ -43,6 +90,7 @@ h2 {
     flex-direction: column;
 }
 
+/* ===== Sidebar Lists ===== */
 .room-list, .user-list {
     padding: 15px;
 }
@@ -67,15 +115,16 @@ h2 {
     transform: translateX(5px);
 }
 
-.active-room { 
+.active-room {
     background: var(--accent) !important;
     color: var(--text-light);
     font-weight: 500;
 }
 
-.main-chat { 
-    flex-grow: 1; 
-    display: flex; 
+/* ===== Chat Section ===== */
+.main-chat {
+    flex-grow: 1;
+    display: flex;
     flex-direction: column;
     background: white;
     border-radius: 10px;
@@ -83,36 +132,44 @@ h2 {
     overflow: hidden;
 }
 
-#chat { 
-    flex-grow: 1; 
+#chat {
+    flex-grow: 1;
     padding: 20px;
     overflow-y: auto;
     background: white;
 }
 
-.message { 
+/* ===== Messages ===== */
+.message {
     margin: 10px 0;
     padding: 12px 15px;
     border-radius: 10px;
     max-width: 80%;
     position: relative;
     line-height: 1.4;
+    animation: fadeIn 0.3s ease;
 }
 
-.message.own { 
+.message span.time {
+    font-size: 0.8em;
+    color: rgb(21, 11, 11);
+    margin-left: 10px; /* 👈 little space from message text */
+}
+
+.message.own {
     background: var(--accent);
     color: var(--text-light);
     margin-left: auto;
     border-bottom-right-radius: 2px;
 }
 
-.message.other { 
+.message.other {
     background: var(--light);
     margin-right: auto;
     border-bottom-left-radius: 2px;
 }
 
-.message.system { 
+.message.system {
     background: #fff3e0;
     color: var(--secondary);
     font-style: italic;
@@ -121,22 +178,23 @@ h2 {
     font-size: 0.9em;
 }
 
-.message.private { 
+.message.private {
     background: var(--success);
     color: var(--text-light);
     border-bottom-left-radius: 2px;
 }
 
-.input-area { 
-    display: flex; 
-    gap: 10px; 
+/* ===== Input Area ===== */
+.input-area {
+    display: flex;
+    gap: 10px;
     padding: 20px;
     background: var(--light);
     border-top: 1px solid rgba(0,0,0,0.1);
 }
 
-#message { 
-    flex-grow: 1; 
+#message {
+    flex-grow: 1;
     padding: 12px 15px;
     border: 1px solid #ddd;
     border-radius: 25px;
@@ -147,10 +205,10 @@ h2 {
 
 #message:focus {
     border-color: var(--accent);
-    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+    box-shadow: 0 0 0 2px rgba(220, 227, 232, 0.2);
 }
 
-button { 
+button {
     padding: 12px 25px;
     border: none;
     border-radius: 25px;
@@ -170,7 +228,7 @@ button:active {
     transform: translateY(1px);
 }
 
-/* Scrollbar Styling */
+/* ===== Scrollbar ===== */
 ::-webkit-scrollbar {
     width: 8px;
 }
@@ -188,32 +246,117 @@ button:active {
     background: #95a5a6;
 }
 
-/* Animations */
+/* ===== Animations ===== */
 @keyframes fadeIn {
     from { opacity: 0; transform: translateY(10px); }
     to { opacity: 1; transform: translateY(0); }
 }
 
-.message {
-    animation: fadeIn 0.3s ease;
-}
-
-/* Responsive Design */
+/* ===== Responsive ===== */
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
         height: auto;
     }
-    
+
     .sidebar {
         width: 100%;
     }
-    
+
     .main-chat {
         height: 60vh;
     }
-    
+
     .message {
         max-width: 90%;
     }
-} 
+}
+
+h2 {
+    text-align: center;
+    color: #333;
+    font-weight: 600;
+    margin-bottom: 10px;
+    letter-spacing: 0; /* removes extra gaps */
+    word-spacing: 0;   /* removes weird spaces between words */
+}
+
+.username {
+    display: inline;
+    margin-left: 5px; /* small space between 'Welcome' and name */
+    color: #007bff;   /* blue or any color you like */
+}
+.dark-mode .username {
+    color: #66b3ff; /* lighter blue for dark mode */
+}
+
+/* 🌙 Dark Mode Styling */
+.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dark-mode .chat-box {
+  background-color: #1e1e1e;
+  border: 1px solid #333;
+}
+
+.dark-mode .message {
+  background-color: #2a2a2a;
+  color: #fff;
+}
+
+.dark-mode input,
+.dark-mode button {
+  background-color: #333;
+  color: #fff;
+  border: 1px solid #555;
+}
+
+.dark-mode .toggle-btn {
+  background-color: #333;
+  color: #fff;
+}
+
+.toggle-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 6px 10px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #eee
+}
+
+/* ===== Dark Mode: Sidebar, Rooms & Online Users ===== */
+body.dark-mode .sidebar {
+    background-color: #1e1e1e; /* Dark background for sidebar */
+    color: #e0e0e0;           /* Default text color */
+}
+
+/* Room and user list titles */
+body.dark-mode .room-list h3,
+body.dark-mode .user-list h3 {
+    color: #66b3ff; /* Soft blue headings in dark mode */
+    border-bottom: 2px solid #333;
+}
+
+/* Individual room and user items */
+body.dark-mode .room-item,
+body.dark-mode .user-item {
+    background-color: #2a2a2a; /* Dark gray boxes */
+    color: #f5f5f5;            /* Light text */
+}
+
+/* Hover effect for better visibility */
+body.dark-mode .room-item:hover,
+body.dark-mode .user-item:hover {
+    background-color: #333333;
+}
+
+/* Active room highlight in dark mode */
+body.dark-mode .active-room {
+    background-color: #3498db !important; /* Blue highlight */
+    color: #ffffff !important;
+}
